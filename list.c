@@ -13,7 +13,7 @@ void out(BITMAPFILEHEADER file_header_1, BITMAPINFOHEADER info_header_1, FILE* i
 	unsigned char padding = 0;
 	if ((Width_1 * 3) % 4)
 		padding = 4 - (Width_1 * 3) % 4;
-	//выделяем память для массива данных о пикселях//
+	//РІС‹РґРµР»СЏРµРј РїР°РјСЏС‚СЊ РґР»СЏ РјР°СЃСЃРёРІР° РґР°РЅРЅС‹С… Рѕ РїРёРєСЃРµР»СЏС…//
 	RGBTRIPLE** img_1 = new RGBTRIPLE * [Height_1];
 	for (size_t i = 0; i < Height_1; i++)
 		img_1[i] = new RGBTRIPLE[Width_1];
@@ -22,33 +22,33 @@ void out(BITMAPFILEHEADER file_header_1, BITMAPINFOHEADER info_header_1, FILE* i
 	for (size_t i = 0; i < Height_2; i++)
 		img_2[i] = new RGBTRIPLE[Width_2];
 
-	//чтение пикселей 1 файла//
+	//С‡С‚РµРЅРёРµ РїРёРєСЃРµР»РµР№ 1 С„Р°Р№Р»Р°//
 	for (size_t i = 0; i < Height_1; i++) {
 		for (size_t j = 0; j < Width_1; j++) {
 			fread(&pixel_1, sizeof(RGBTRIPLE), 1, input_1);
 			img_1[i][j] = pixel_1;
 		}
-		fseek(input_1, padding, SEEK_CUR); // пропуск "выравнивающих" байтов
+		fseek(input_1, padding, SEEK_CUR); // РїСЂРѕРїСѓСЃРє "РІС‹СЂР°РІРЅРёРІР°СЋС‰РёС…" Р±Р°Р№С‚РѕРІ
 	}
 	fclose(input_1);
 
-	/*чтение пикселей 2 файла*/
+	//С‡С‚РµРЅРёРµ РїРёРєСЃРµР»РµР№ 2 С„Р°Р№Р»Р°//
 	for (size_t i = 0; i < Height_2; i++) {
 		for (size_t j = 0; j < Width_2; j++) {
 			fread(&pixel_2, sizeof(RGBTRIPLE), 1, input_2);
 			img_2[i][j] = pixel_2;
 		}
-		fseek(input_2, padding, SEEK_CUR); // пропуск "выравнивающих" байтов
+		fseek(input_2, padding, SEEK_CUR); // РїСЂРѕРїСѓСЃРє "РІС‹СЂР°РІРЅРёРІР°СЋС‰РёС…" Р±Р°Р№С‚РѕРІ
 	}
 	fclose(input_2);
 
-	/*запись нового файла*/
+	//Р·Р°РїРёСЃСЊ РЅРѕРІРѕРіРѕ С„Р°Р№Р»Р°//
 	info_header_1.biHeight = Height_1;
 	info_header_1.biWidth = Width_1;
 	fwrite(&file_header_1, sizeof(BITMAPFILEHEADER), 1, output);
 	fwrite(&info_header_1, sizeof(BITMAPINFOHEADER), 1, output);
 
-	//расчет нового значения padding 
+	//СЂР°СЃС‡РµС‚ РЅРѕРІРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ padding 
 	padding = 0;
 	if ((Height_1 * 3) % 4)
 		padding = 4 - (Height_1 * 3) % 4;
@@ -85,14 +85,14 @@ void out(BITMAPFILEHEADER file_header_1, BITMAPINFOHEADER info_header_1, FILE* i
 }
 
 void read(const char* file_in_1, const char* file_in_2, const char* file_out) {
-	//заголовки необходимые для работы с bmp
+	//Р·Р°РіРѕР»РѕРІРєРё РЅРµРѕР±С…РѕРґРёРјС‹Рµ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ bmp
 	BITMAPFILEHEADER file_header_1;
 	BITMAPFILEHEADER file_header_2;
 	BITMAPINFOHEADER info_header_1;
 	BITMAPINFOHEADER info_header_2;
 	FILE* input_1, * input_2, * output;
 
-	//открываем файлы для чтения
+	//РѕС‚РєСЂС‹РІР°РµРј С„Р°Р№Р»С‹ РґР»СЏ С‡С‚РµРЅРёСЏ//
 	input_1 = fopen(file_in_1, "rb");
 	input_2 = fopen(file_in_2, "rb");
 	output = fopen(file_out, "wb");
@@ -101,7 +101,7 @@ void read(const char* file_in_1, const char* file_in_2, const char* file_out) {
 		system("pause");
 		return;
 	}
-	//чтение BMPFILEHEADER и  BMPINFOHEADER//
+	//С‡С‚РµРЅРёРµ  BMPFILEHEADER ГЁ  BMPINFOHEADER//
 	fread(&file_header_1, sizeof(BITMAPFILEHEADER), 1, input_1);
 	fread(&info_header_1, sizeof(BITMAPINFOHEADER), 1, input_1);
 	fread(&file_header_2, sizeof(BITMAPFILEHEADER), 1, input_2);
